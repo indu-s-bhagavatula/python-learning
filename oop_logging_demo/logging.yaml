@@ -1,0 +1,44 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+    simple:
+        format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    messageonly:
+        format: "%(message)s"
+handlers:
+    console:
+        class: logging.StreamHandler
+        level: DEBUG
+        formatter: simple
+        # stream: ext://sys.stdout
+        stream: sys.stdout
+
+    oop_logging_app_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: DEBUG
+        formatter: simple
+        filename: logs/oop_logging_app.log
+        maxBytes: 1024
+        backupCount: 20
+        encoding: utf8
+    employee_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: DEBUG
+        formatter: simple
+        filename: logs/employee.log
+        maxBytes: 1024
+        backupCount: 5
+        encoding: utf8
+
+loggers:
+    oop_logging_app:
+        level: INFO
+        handlers: [oop_logging_app_file_handler]
+        propagate: no
+    employee:
+        level: INFO
+        handlers: [employee_file_handler]
+        propagate: no
+    root:
+      level: INFO
+      handlers: [console]
